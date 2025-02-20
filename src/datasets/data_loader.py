@@ -19,7 +19,9 @@ from .ops import Cutout
 def get_loaders(datasets, num_tasks, nc_first_task, batch_size, num_workers, pin_memory, validation=.1,
                 extra_aug=""):
     """Apply transformations to Datasets and create the DataLoaders for each task"""
-
+    print("LOADDDDEEERRR")
+    print(num_tasks)
+    print(nc_first_task)
     trn_load, val_load, tst_load = [], [], []
     taskcla = []
     dataset_offset = 0
@@ -156,6 +158,11 @@ def get_datasets(dataset, path, num_tasks, nc_first_task, validation, trn_transf
                                                                 validation=validation, shuffle_classes=False)
         Dataset = basedat.BaseDataset
 
+    else :
+        all_data, taskcla, class_indices = basedat.get_data(path, num_tasks=num_tasks, nc_first_task=nc_first_task,
+                                                                validation=validation, shuffle_classes=False)
+        Dataset = basedat.BaseDataset
+        
     # get datasets, apply correct label offsets for each task
     offset = 0
     for task in range(num_tasks):
