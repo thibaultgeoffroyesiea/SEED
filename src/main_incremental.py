@@ -210,7 +210,7 @@ def main(argv=None):
 
     # Network and Approach instances
     utils.seed_everything(seed=args.seed)
-    if args.approach == "seed" or arg.approach=="seed_tgy":
+    if args.approach == "seed" or args.approach=="seed_tgy":
         net = ExtractorEnsemble(init_model, taskcla, args.network, device)
     else:
         net = LLL_Net(init_model, taskcla, remove_existing_head=not args.keep_existing_head)
