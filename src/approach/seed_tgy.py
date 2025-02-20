@@ -118,7 +118,9 @@ class Appr(Inc_Learning_Appr):
         else: 
             bb_to_finetune = self._choose_backbone_to_finetune(t, trn_loader, val_loader)
             print(f"Finetuning backbone {bb_to_finetune} on task {t}:")
-            self.finetune_backbone(t, bb_to_finetune, trn_loader, val_loader)
+            self.finetune_backbone(t, bb_to_finetune[0], trn_loader, val_loader)
+            self.finetune_backbone(t, bb_to_finetune[1], trn_loader, val_loader)
+
 
         print(f"Creating distributions for task {t}:")
         self.create_distributions(t, trn_loader, val_loader)
@@ -228,7 +230,7 @@ class Appr(Inc_Learning_Appr):
         # torch.save(self.model.state_dict(), f"{self.logger.exp_path}/model_{t}.pth")
 
     @torch.no_grad()
-    def _choose_backbone_to_finetune(self, t, trn_loader, val_loader):
+    def _choose_backbone_to_finetune(self, t, trn_loader, val_loader, n_finetune = 2):
         self.create_distributions(t, trn_loader, val_loader)
         expert_overlap = torch.zeros(self.max_experts, device=self.device)
         for bb_num in range(self.max_experts):
@@ -244,8 +246,9 @@ class Appr(Inc_Learning_Appr):
             self.experts_distributions[bb_num] = self.experts_distributions[bb_num][:-classes_in_t]
         print(f"Expert overlap:{expert_overlap}")
         bb_to_finetune = torch.argmax(expert_overlap)
+        second_max = torch.argsort(expert_overlap)[-2]
         self.model.task_offset = self.model.task_offset[:-1]
-        return int(bb_to_finetune)
+        return [int(bb_to_finetune), int(second_max)]
 
 
     def finetune_backbone(self, t, bb_to_finetune, trn_loader, val_loader):
