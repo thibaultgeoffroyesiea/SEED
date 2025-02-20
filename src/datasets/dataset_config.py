@@ -127,6 +127,12 @@ dataset_config = {
         'crop': 224,
         'flip': True,
         'normalize': ((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+    },
+    ,
+    'cfee': {
+        'path': join(_BASE_DATA_PATH, 'cfee'),
+        'resize': 128,
+        'flip': True,
     }
 }
 

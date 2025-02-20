@@ -1,0 +1,10 @@
+#!/bin/bash
+for NUM_EXPERTS in 5
+do
+  python src/main_incremental.py --approach seed --gmms 1 --max-experts $NUM_EXPERTS --use-multivariate --nepochs 150 --tau 3 --batch-size 128 --num-workers 4 --datasets cfee --num-tasks 5 --nc-first-task 7 --lr 0.05 --weight-decay 5e-4 --clipping 1 --alpha 0.99 --use-test-as-val --network resnet32 --extra-aug fetril --momentum 0.9 --exp-name 5e_0s_SEEDimproved --seed 0 --shared 0
+done
+
+python src/main_incremental.py --approach seed --gmms 1 --max-experts $NUM_EXPERTS --use-multivariate --nepochs 150 --tau 3 --batch-size 128 --num-workers 4 --datasets cfee --num-tasks 5 --nc-first-task 7 --lr 0.05 --weight-decay 5e-4 --clipping 1 --alpha 0.99 --use-test-as-val --network resnet32 --extra-aug fetril --momentum 0.9 --exp-name 5e_1s_SEEDimproved --seed 0 --shared 1
+python src/main_incremental.py --approach seed --gmms 1 --max-experts $NUM_EXPERTS --use-multivariate --nepochs 150 --tau 3 --batch-size 128 --num-workers 4 --datasets cfee --num-tasks 5 --nc-first-task 7 --lr 0.05 --weight-decay 5e-4 --clipping 1 --alpha 0.99 --use-test-as-val --network resnet32 --extra-aug fetril --momentum 0.9 --exp-name 5e_2s_SEEDimproved --seed 0 --shared 2
+python src/main_incremental.py --approach seed --gmms 1 --max-experts $NUM_EXPERTS --use-multivariate --nepochs 150 --tau 3 --batch-size 128 --num-workers 4 --datasets cfee --num-tasks 5 --nc-first-task 7 --lr 0.05 --weight-decay 5e-4 --clipping 1 --alpha 0.99 --use-test-as-val --network resnet32 --extra-aug fetril --momentum 0.9 --exp-name 5e_3s_SEEDimproved --seed 0 --shared 3
+python src/main_incremental.py --approach seed --gmms 1 --max-experts $NUM_EXPERTS --use-multivariate --nepochs 150 --tau 3 --batch-size 128 --num-workers 4 --datasets cfee --num-tasks 5 --nc-first-task 7 --lr 0.05 --weight-decay 5e-4 --clipping 1 --alpha 0.99 --use-test-as-val --network resnet32 --extra-aug fetril --momentum 0.9 --exp-name 5e_4s_SEEDimproved --seed 0 --shared 4
