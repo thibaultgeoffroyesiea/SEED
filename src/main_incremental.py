@@ -321,9 +321,8 @@ def main(argv=None):
             logger.log_figure(name='weights', iter=t, figure=weights)
             logger.log_figure(name='bias', iter=t, figure=biases)
 
-        if args.confusion_matrix:
-            pred = appr.predict(tst_loader[t])
-            print(pred)
+        pred = appr.predict(tst_loader[t])
+        print("accuracy on task ", t, " : ", pred)
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
