@@ -242,6 +242,7 @@ def main(argv=None):
     forg_taw = np.zeros((max_task, max_task))
     forg_tag = np.zeros((max_task, max_task))
     predictions = []
+    targets = []
     for t, (_, ncla) in enumerate(taskcla):
         # Early stop tasks if flag
         if t >= max_task:
@@ -322,6 +323,9 @@ def main(argv=None):
             logger.log_figure(name='weights', iter=t, figure=weights)
             logger.log_figure(name='bias', iter=t, figure=biases)
         pred = appr.predict(tst_loader[t])
+        for _, target in tst_loader[t]:
+            targets.append(target)
+
         for v in pred:
             predictions.append(v.item())
     print(predictions)
