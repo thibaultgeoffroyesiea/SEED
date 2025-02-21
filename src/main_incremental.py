@@ -324,7 +324,8 @@ def main(argv=None):
             logger.log_figure(name='bias', iter=t, figure=biases)
         pred = appr.predict(tst_loader[t])
         for _, target in tst_loader[t]:
-            targets.append(target)
+            for t in target:
+                targets.append(t.item())
 
         for v in pred:
             predictions.append(v.item())
