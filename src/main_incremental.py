@@ -101,7 +101,9 @@ def main(argv=None):
     # gridsearch args
     parser.add_argument('--gridsearch-tasks', default=-1, type=int,
                         help='Number of tasks to apply GridSearch (-1: all tasks) (default=%(default)s)')
-
+    #confsuion matrix args
+    parser.add_argument('--confusion-matrix', action='store_true',
+                        help='Show confusion matrix (default=%(default)s)')
     # Args -- Incremental Learning Framework
     args, extra_args = parser.parse_known_args(argv)
     args.results_path = os.path.expanduser(args.results_path)
@@ -318,6 +320,10 @@ def main(argv=None):
             weights, biases = last_layer_analysis(net.heads, t, taskcla, y_lim=True, sort_weights=True)
             logger.log_figure(name='weights', iter=t, figure=weights)
             logger.log_figure(name='bias', iter=t, figure=biases)
+
+        if args.confusion_matrix:
+            pred = appr.predict(tst_loader[t])
+            print(pred)
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
