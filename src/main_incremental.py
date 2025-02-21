@@ -329,12 +329,12 @@ def main(argv=None):
 
         for v in pred:
             predictions.append(v.item())
-    print(predictions)
+    print(len(predictions))
     print("*************")
-    print(targets)
+    print(len(targets))
 
-    cm = confusion_matrix(targets, predictions)
-    print(cm)
+    # cm = confusion_matrix(targets, predictions)
+    # print(cm)
 
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
