@@ -329,6 +329,8 @@ def main(argv=None):
         for v in pred:
             predictions.append(v.item())
     print(predictions)
+    print("*************")
+    print(targets)
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
