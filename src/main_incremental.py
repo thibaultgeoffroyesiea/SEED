@@ -15,7 +15,7 @@ from datasets.data_loader import get_loaders
 from datasets.dataset_config import dataset_config
 from last_layer_analysis import last_layer_analysis
 from networks import tvmodels, allmodels, set_tvmodel_head_var
-
+from sklearn.metrics import confusion_matrix
 
 
 
@@ -332,6 +332,10 @@ def main(argv=None):
     print(predictions)
     print("*************")
     print(targets)
+
+    cm = confusion_matrix(targets, predictions)
+    print(cm)
+
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
