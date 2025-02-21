@@ -321,8 +321,8 @@ def main(argv=None):
             weights, biases = last_layer_analysis(net.heads, t, taskcla, y_lim=True, sort_weights=True)
             logger.log_figure(name='weights', iter=t, figure=weights)
             logger.log_figure(name='bias', iter=t, figure=biases)
-
-        predictions.append(appr.predict(tst_loader[t]))
+        pred = appr.predict(tst_loader[t]).item()
+        predictions.append(pred)
     print(predictions)
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
