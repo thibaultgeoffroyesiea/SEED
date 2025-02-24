@@ -315,8 +315,7 @@ def main(argv=None):
             for v in pred:
                 predictions.append(v.item())
             for _, target in tst_loader[u]:
-                for ta in target:
-                    targets.append(ta.item())
+                print(target)
         # Last layer analysis
         if args.last_layer_analysis:
             weights, biases = last_layer_analysis(net.heads, t, taskcla, y_lim=True)
