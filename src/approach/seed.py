@@ -397,9 +397,8 @@ class Appr(Inc_Learning_Appr):
             # Forward current model
             features = self.model(images.to(self.device))
             tag_pred = self.predict_class_agn(features)
-            result.append(tag_pred)
-        print("predddict: ", len(result))
-        print(result)
+            for i in tag_pred:
+                result.append(i.item())
         return result
 
     def criterion(self, t, outputs, targets, features=None, old_features=None):
