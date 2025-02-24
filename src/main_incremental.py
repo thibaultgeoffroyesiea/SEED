@@ -17,7 +17,8 @@ from last_layer_analysis import last_layer_analysis
 from networks import tvmodels, allmodels, set_tvmodel_head_var
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import accuracy_score
-
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 def main(argv=None):
@@ -337,7 +338,15 @@ def main(argv=None):
 
     cm = confusion_matrix(targets, predictions)
     print(cm)
+    
+     # Figure biases
+    f_cm = plt.figure(dpi=300)
 
+    sns.heatmap(cm, annot=True)
+    logger.log_figure(name='confusion_matrix', iter=t, figure=f_cm)
+
+    sns.heatmap(cm, annot=True)
+    plt.savefig('confusion_matrix.png')
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
