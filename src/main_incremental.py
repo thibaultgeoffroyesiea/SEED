@@ -16,6 +16,7 @@ from datasets.dataset_config import dataset_config
 from last_layer_analysis import last_layer_analysis
 from networks import tvmodels, allmodels, set_tvmodel_head_var
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
 
 
 
@@ -331,12 +332,11 @@ def main(argv=None):
         #     for t in target:
         #         targets.append(t.item())
 
-    print(len(predictions))
-    print("*************")
-    print(len(targets))
+    print("accuracy: " + accuracy_score(targets, predictions))
 
-    # cm = confusion_matrix(targets, predictions)
-    # print(cm)
+
+    cm = confusion_matrix(targets, predictions)
+    print(cm)
 
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
