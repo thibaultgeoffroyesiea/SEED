@@ -391,12 +391,16 @@ class Appr(Inc_Learning_Appr):
     def predict(self, val_loader):
         """Predicts the output given the input"""
         """Contains the evaluation code"""
+        result = []
         for images, targets in val_loader:
             targets = targets.to(self.device)
             # Forward current model
             features = self.model(images.to(self.device))
             tag_pred = self.predict_class_agn(features)
-        return tag_pred
+            result.append(tag_pred)
+        print("predddict: ", len(result))
+        print(result)
+        return result
 
     def criterion(self, t, outputs, targets, features=None, old_features=None):
         """Returns the loss value"""
