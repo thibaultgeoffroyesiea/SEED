@@ -311,7 +311,7 @@ def main(argv=None):
             aux = np.tril(np.repeat([[tdata[1] for tdata in taskcla[:max_task]]], max_task, axis=0))
             logger.log_result((acc_taw * aux).sum(1) / aux.sum(1), name="wavg_accs_taw", step=t)
             logger.log_result((acc_tag * aux).sum(1) / aux.sum(1), name="wavg_accs_tag", step=t)
-            pred = appr.predict(tst_loader[t])
+            pred = appr.predict(tst_loader[u])
             for v in pred:
                 predictions.append(v.item())
         # Last layer analysis
