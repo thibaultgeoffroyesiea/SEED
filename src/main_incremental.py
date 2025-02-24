@@ -314,6 +314,9 @@ def main(argv=None):
             pred = appr.predict(tst_loader[u])
             for v in pred:
                 predictions.append(v.item())
+            for _, target in tst_loader[u]:
+                for ta in target:
+                    targets.append(ta.item())
         # Last layer analysis
         if args.last_layer_analysis:
             weights, biases = last_layer_analysis(net.heads, t, taskcla, y_lim=True)
@@ -324,9 +327,9 @@ def main(argv=None):
             weights, biases = last_layer_analysis(net.heads, t, taskcla, y_lim=True, sort_weights=True)
             logger.log_figure(name='weights', iter=t, figure=weights)
             logger.log_figure(name='bias', iter=t, figure=biases)
-        for _, target in tst_loader[t]:
-            for t in target:
-                targets.append(t.item())
+        # for _, target in tst_loader[t]:
+        #     for t in target:
+        #         targets.append(t.item())
 
     print(len(predictions))
     print("*************")
