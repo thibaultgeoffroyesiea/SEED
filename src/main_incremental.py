@@ -313,8 +313,11 @@ def main(argv=None):
             logger.log_result((acc_tag * aux).sum(1) / aux.sum(1), name="wavg_accs_tag", step=t)
             pred = appr.predict(tst_loader[u])
             predictions.extend(pred)
-            targets.extend([t.item() for _, t in [scalar for scalar in tst_loader[u]]])
-        # Last layer analysis
+            targets.extend([t[i].item() for _, t in tst_loader[u] for i in range(t.size(0))])
+
+            
+             # Last layer analysis
+
         if args.last_layer_analysis:
             weights, biases = last_layer_analysis(net.heads, t, taskcla, y_lim=True)
             logger.log_figure(name='weights', iter=t, figure=weights)
