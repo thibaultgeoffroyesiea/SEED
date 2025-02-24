@@ -332,7 +332,7 @@ def main(argv=None):
         #     for t in target:
         #         targets.append(t.item())
 
-    print("accuracy: " + accuracy_score(targets, predictions))
+    print("accuracy: " + str(accuracy_score(targets, predictions)))
 
 
     cm = confusion_matrix(targets, predictions)
