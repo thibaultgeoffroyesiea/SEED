@@ -284,7 +284,8 @@ def main(argv=None):
         # Train
         appr.train(t, trn_loader[t], val_loader[t])
         print('-' * 108)
-
+        predictions = []
+        targets = []
         # Test
         for u in range(t + 1):
             test_loss, acc_taw[t, u], acc_tag[t, u] = appr.eval(u, tst_loader[u])
@@ -333,20 +334,20 @@ def main(argv=None):
         #     for t in target:
         #         targets.append(t.item())
 
-    print("accuracy: " + str(accuracy_score(targets, predictions)))
+        print("accuracy: " + str(accuracy_score(targets, predictions)))
 
 
-    cm = confusion_matrix(targets, predictions)
-    print(cm)
-    
-     # Figure biases
-    f_cm = plt.figure(dpi=300)
+        cm = confusion_matrix(targets, predictions)
+        print(cm)
+        
+        # Figure biases
+        f_cm = plt.figure(dpi=300)
 
-    sns.heatmap(cm, annot=True)
-    logger.log_figure(name='confusion_matrix', iter=t, figure=f_cm)
+        sns.heatmap(cm, annot=True)
+        logger.log_figure(name='confusion_matrix ' + str(t), iter=t, figure=f_cm)
 
-    sns.heatmap(cm, annot=True)
-    plt.savefig('confusion_matrix.png')
+        sns.heatmap(cm, annot=True)
+        plt.savefig('confusion_matrix.png')
     # Print Summary
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
