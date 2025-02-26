@@ -315,9 +315,9 @@ def main(argv=None):
             aux = np.tril(np.repeat([[tdata[1] for tdata in taskcla[:max_task]]], max_task, axis=0))
             logger.log_result((acc_taw * aux).sum(1) / aux.sum(1), name="wavg_accs_taw", step=t)
             logger.log_result((acc_tag * aux).sum(1) / aux.sum(1), name="wavg_accs_tag", step=t)
-            pred = appr.predict(tst_loader[u])
-            predictions.extend(pred)
-            targets.extend([t[i].item() for _, t in tst_loader[u] for i in range(t.size(0))])
+            # pred = appr.predict(tst_loader[u])
+            # predictions.extend(pred)
+            # targets.extend([t[i].item() for _, t in tst_loader[u] for i in range(t.size(0))])
 
             
              # Last layer analysis
@@ -339,17 +339,17 @@ def main(argv=None):
         print("accuracy: " + str(accuracy_score(targets, predictions)))
 
 
-        cm = confusion_matrix(targets, predictions)
-        print(cm)
+        # cm = confusion_matrix(targets, predictions)
+        # print(cm)
         
-        # Figure biases
-        f_cm = plt.figure(dpi=300)
+        # # Figure biases
+        # f_cm = plt.figure(dpi=300)
 
-        sns.heatmap(cm, annot=True)
-        logger.log_figure(name='confusion_matrix_task_' + str(t), iter=t, figure=f_cm)
+        # sns.heatmap(cm, annot=True)
+        # logger.log_figure(name='confusion_matrix_task_' + str(t), iter=t, figure=f_cm)
 
-        sns.heatmap(cm, annot=True)
-        plt.savefig('confusion_matrix.png')
+        # sns.heatmap(cm, annot=True)
+        # plt.savefig('confusion_matrix.png')
     # Print Summary
     f_cm = plt.figure(dpi=300)
     sns.plot(accs)
