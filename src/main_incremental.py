@@ -245,6 +245,7 @@ def main(argv=None):
     forg_tag = np.zeros((max_task, max_task))
     predictions = []
     targets = []
+    accs = []
     for t, (_, ncla) in enumerate(taskcla):
         # Early stop tasks if flag
         if t >= max_task:
@@ -334,6 +335,7 @@ def main(argv=None):
         #     for t in target:
         #         targets.append(t.item())
 
+        accs.append(accuracy_score(targets, predictions))
         print("accuracy: " + str(accuracy_score(targets, predictions)))
 
 
@@ -344,11 +346,14 @@ def main(argv=None):
         f_cm = plt.figure(dpi=300)
 
         sns.heatmap(cm, annot=True)
-        logger.log_figure(name='confusion_matrix ' + str(t), iter=t, figure=f_cm)
+        logger.log_figure(name='confusion_matrix_task_' + str(t), iter=t, figure=f_cm)
 
         sns.heatmap(cm, annot=True)
         plt.savefig('confusion_matrix.png')
     # Print Summary
+    f_cm = plt.figure(dpi=300)
+    sns.plot(accs)
+    logger.log_figure(name='accuracy', iter=t, figure=f_cm)
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
     print('Done!')
