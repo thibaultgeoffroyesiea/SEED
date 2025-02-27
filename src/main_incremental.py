@@ -106,6 +106,13 @@ def main(argv=None):
     #confsuion matrix args
     parser.add_argument('--confusion-matrix', action='store_true',
                         help='Show confusion matrix (default=%(default)s)')
+    #saving model
+    parser.add_argument('--save_model', type=bool, default=False, help='Save model (default=%(default)s)')
+
+    
+
+
+
     # Args -- Incremental Learning Framework
     args, extra_args = parser.parse_known_args(argv)
     args.results_path = os.path.expanduser(args.results_path)
