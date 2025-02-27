@@ -359,7 +359,7 @@ def main(argv=None):
         plt.savefig('confusion_matrix.png')
     # Print Summary
     f_cm = plt.figure(dpi=300)
-    sns.plot(accs)
+    sns.lineplot(accs)
     logger.log_figure(name='accuracy', iter=t, figure=f_cm)
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
