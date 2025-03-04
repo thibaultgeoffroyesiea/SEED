@@ -342,18 +342,18 @@ def main(argv=None):
         #     for t in target:
         #         targets.append(t.item())
 
-    accs.append(accuracy_score(targets, predictions))
-    print("accuracy: " + str(accuracy_score(targets, predictions)))
+        accs.append(accuracy_score(targets, predictions))
+        print("accuracy: " + str(accuracy_score(targets, predictions)))
 
 
-    cm = confusion_matrix(targets, predictions)
-    print(cm)
-    
-    # Figure biases
-    f_cm = plt.figure(dpi=300)
+        cm = confusion_matrix(targets, predictions)
+        print(cm)
+        
+        # Figure biases
+        f_cm = plt.figure(dpi=300)
 
-    sns.heatmap(cm, annot=True)
-    logger.log_figure(name='confusion_matrix_task_' + str(t), iter=t, figure=f_cm)
+        sns.heatmap(cm, annot=True)
+        logger.log_figure(name='confusion_matrix_task_' + str(t), iter=t, figure=f_cm)
 
     sns.heatmap(cm, annot=True)
     plt.savefig('confusion_matrix.png')
