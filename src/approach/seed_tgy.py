@@ -326,7 +326,7 @@ class Appr(Inc_Learning_Appr):
         """ Create distributions for task t"""
         self.model.eval()
         classes = self.model.taskcla[t][1]
-        print("**************CREATE_DISTRIBUTION****************")
+        print("**************CREATE_DISTRIBUTION FOR TGY****************")
         print(classes)
 
         self.model.task_offset.append(self.model.task_offset[-1] + classes)
