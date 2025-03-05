@@ -253,6 +253,7 @@ def main(argv=None):
     predictions = []
     targets = []
     accs = []
+    accs_t = []
     for t, (_, ncla) in enumerate(taskcla):
         # Early stop tasks if flag
         if t >= max_task:
