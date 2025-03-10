@@ -391,19 +391,25 @@ class Appr(Inc_Learning_Appr):
 
     @torch.no_grad()
     def predict_class_all_expert(self, features):
-        tag_class_ids = []
         log_probs = torch.full((features.shape[0], len(self.experts_distributions), len(self.experts_distributions[0])), fill_value=-1e8, device=features.device)
         mask = torch.full_like(log_probs, fill_value=False, dtype=torch.bool)
         for bb_num, _ in enumerate(self.experts_distributions):
             for c, class_gmm in enumerate(self.experts_distributions[bb_num]):
                 c += self.model.task_offset[bb_num]
-                log_prob = class_gmm.score_samples(features[:, bb_num])
-                print(log_prob)
+                log_probs[:, bb_num, c] = class_gmm.score_samples(features[:, bb_num])
                 mask[:, bb_num, c] = True
-                confidence = torch.sum(log_prob) / torch.sum(mask, dim=1)
-                tag_class_ids.append(torch.argmax(confidence, dim=1))
         
-        return tag_class_ids
+        # Task-Agnostic
+        log_probs = softmax_temperature(log_probs, dim=2, tau=self.tau)
+        print("***********LOGPROBS***********")
+        print(log_probs)
+        confidences = torch.sum(log_probs, dim=1) / torch.sum(mask, dim=1)
+        print("***********CONFIDENCES***********")
+        print(confidences)
+        tag_class_id = torch.argmax(confidences, dim=1)
+        print("***********TAG_CLASS_ID***********")
+        print(tag_class_id)
+        return tag_class_id
     
 
     
