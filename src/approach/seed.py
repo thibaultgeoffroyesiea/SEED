@@ -373,20 +373,23 @@ class Appr(Inc_Learning_Appr):
         return taw_class_id, tag_class_id
         
     @torch.no_grad()
-    def predict_class_agn(self, features):
+    def predict_class_all_expert(self, features):
+        tag_class_ids = []
         log_probs = torch.full((features.shape[0], len(self.experts_distributions), len(self.experts_distributions[0])), fill_value=-1e8, device=features.device)
         mask = torch.full_like(log_probs, fill_value=False, dtype=torch.bool)
         for bb_num, _ in enumerate(self.experts_distributions):
             for c, class_gmm in enumerate(self.experts_distributions[bb_num]):
                 c += self.model.task_offset[bb_num]
-                log_probs[:, bb_num, c] = class_gmm.score_samples(features[:, bb_num])
+                log_prob = class_gmm.score_samples(features[:, bb_num])
                 mask[:, bb_num, c] = True
+                confidence = torch.sum(log_prob) / torch.sum(mask, dim=1)
+                tag_class_ids.append(torch.argmax(confidence, dim=1))
         
-        # Task-Agnostic
-        log_probs = softmax_temperature(log_probs, dim=2, tau=self.tau)
-        confidences = torch.sum(log_probs, dim=1) / torch.sum(mask, dim=1)
-        tag_class_id = torch.argmax(confidences, dim=1)
-        return tag_class_id
+        return tag_class_ids
+    
+
+    
+    
     
     def predict(self, val_loader):
         """Predicts the output given the input"""
@@ -400,6 +403,19 @@ class Appr(Inc_Learning_Appr):
             for i in tag_pred:
                 result.append(i.item())
         return result
+
+
+    def predict_all_expert(self, val_loader):
+        result = []
+        for images, targets in val_loader:
+            targets = targets.to(self.device)
+            # Forward current model
+            features = self.model(images.to(self.device))
+            expert_preds  = self.predict_class_all_expert(features)
+            for i in expert_preds:
+                result.append(i.item())
+        return result
+    
 
     def criterion(self, t, outputs, targets, features=None, old_features=None):
         """Returns the loss value"""
