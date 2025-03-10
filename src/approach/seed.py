@@ -398,6 +398,7 @@ class Appr(Inc_Learning_Appr):
             for c, class_gmm in enumerate(self.experts_distributions[bb_num]):
                 c += self.model.task_offset[bb_num]
                 log_prob = class_gmm.score_samples(features[:, bb_num])
+                print(log_prob)
                 mask[:, bb_num, c] = True
                 confidence = torch.sum(log_prob) / torch.sum(mask, dim=1)
                 tag_class_ids.append(torch.argmax(confidence, dim=1))
