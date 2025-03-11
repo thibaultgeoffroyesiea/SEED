@@ -254,6 +254,7 @@ def main(argv=None):
     targets = []
     accs = []
     accs_t = []
+    pred_classes = []
     for t, (_, ncla) in enumerate(taskcla):
         # Early stop tasks if flag
         if t >= max_task:
@@ -295,7 +296,6 @@ def main(argv=None):
         print('-' * 108)
         predictions = []
         targets = []
-        pred_classes = []
         # Test
         for u in range(t + 1):
             test_loss, acc_taw[t, u], acc_tag[t, u] = appr.eval(u, tst_loader[u])
@@ -347,9 +347,7 @@ def main(argv=None):
 
         accs.append(accuracy_score(targets, predictions))
         print("accuracy: " + str(accuracy_score(targets, predictions)))
-        
-        print(pred_classes)
-
+      
         cm = confusion_matrix(targets, predictions)
         print(cm)
         
@@ -358,6 +356,11 @@ def main(argv=None):
 
         sns.heatmap(cm, annot=True)
         logger.log_figure(name='confusion_matrix_task_' + str(t), iter=t, figure=f_cm)
+
+
+    print("***********pred_by_expert************")
+    print(pred_classes.shape)
+    print(pred_classes)
 
     sns.heatmap(cm, annot=True)
     plt.savefig('confusion_matrix.png')
