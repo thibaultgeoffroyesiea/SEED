@@ -295,6 +295,7 @@ def main(argv=None):
         print('-' * 108)
         predictions = []
         targets = []
+        pred_classes = []
         # Test
         for u in range(t + 1):
             test_loss, acc_taw[t, u], acc_tag[t, u] = appr.eval(u, tst_loader[u])
@@ -324,8 +325,7 @@ def main(argv=None):
             logger.log_result((acc_taw * aux).sum(1) / aux.sum(1), name="wavg_accs_taw", step=t)
             logger.log_result((acc_tag * aux).sum(1) / aux.sum(1), name="wavg_accs_tag", step=t)
             pred = appr.predict(tst_loader[u])
-            pred_classes = appr.predict_all_expert(tst_loader[u])
-            print(pred_classes)
+            pred_classes.extend(appr.predict_all_expert(tst_loader[u]))
             predictions.extend(pred)
             targets.extend([t[i].item() for _, t in tst_loader[u] for i in range(t.size(0))])
 
@@ -347,7 +347,8 @@ def main(argv=None):
 
         accs.append(accuracy_score(targets, predictions))
         print("accuracy: " + str(accuracy_score(targets, predictions)))
-
+        
+        print(pred_classes)
 
         cm = confusion_matrix(targets, predictions)
         print(cm)

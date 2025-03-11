@@ -459,7 +459,6 @@ class Appr(Inc_Learning_Appr):
                 result.append([])
                 for i in expert_preds[expert]:
                     result[expert].append(i.item())
-                    print(result)
         return result
     
 
