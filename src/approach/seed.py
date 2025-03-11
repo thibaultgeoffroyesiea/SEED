@@ -399,9 +399,15 @@ class Appr(Inc_Learning_Appr):
                 c += self.model.task_offset[bb_num]
                 log_probs[:, bb_num, c] = class_gmm.score_samples(features[:, bb_num])
                 mask[:, bb_num, c] = True
-            log_probs[:, bb_num, :] = softmax_temperature(log_probs[:, bb_num, :], tau=self.tau)
+            print("***********LOGPROBS***********")
+            log_probs[:, bb_num, :] = softmax_temperature(log_probs[:, bb_num, :], dim=1, tau=self.tau)
+            print(log_probs)
             confidences = torch.sum(log_probs[:, bb_num, :], dim=0) / torch.sum(mask[:, bb_num, :], dim=0)
+            print("***********CONFIDENCES***********")
+            print(confidences)
+            print("***********ARGMAX***********")
             tag_class_id.append(torch.argmax(confidences))
+            print(tag_class_id)
 
 
         
@@ -413,8 +419,8 @@ class Appr(Inc_Learning_Appr):
         # print("***********CONFIDENCES***********")
         # print(confidences)
         # tag_class_id = torch.argmax(confidences, dim=1)
-        print("***********TAG_CLASS_ID***********")
-        print(tag_class_id)
+        # print("***********TAG_CLASS_ID***********")
+        # print(tag_class_id)
         return tag_class_id
     
 
