@@ -400,7 +400,7 @@ class Appr(Inc_Learning_Appr):
                 log_probs[:, bb_num, c] = class_gmm.score_samples(features[:, bb_num])
                 mask[:, bb_num, c] = True
             print("***********LOGPROBS***********")
-            log_probs[:, bb_num, :] = softmax_temperature(log_probs[:, bb_num, :], dim=1, tau=self.tau)
+            log_probs[:, bb_num, :] = softmax_temperature(log_probs[:, bb_num, :], dim=0, tau=self.tau)
             print(log_probs)
             confidences = torch.sum(log_probs[:, bb_num, :], dim=0) / torch.sum(mask[:, bb_num, :], dim=0)
             print("***********CONFIDENCES***********")
