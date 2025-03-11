@@ -400,9 +400,9 @@ class Appr(Inc_Learning_Appr):
                 mask[:, bb_num, c] = True
         
         # Task-Agnostic
-        log_probs = softmax_temperature(log_probs, dim=2, tau=self.tau)
-        print("***********LOGPROBS***********")
-        print(log_probs)
+        # log_probs = softmax_temperature(log_probs, dim=2, tau=self.tau)
+        # print("***********LOGPROBS***********")
+        # print(log_probs)
         confidences = torch.sum(log_probs, dim=1) / torch.sum(mask, dim=1)
         print("***********CONFIDENCES***********")
         print(confidences)
