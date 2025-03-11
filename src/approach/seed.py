@@ -401,9 +401,11 @@ class Appr(Inc_Learning_Appr):
                 mask[:, bb_num, c] = True
 
             print("***********DIM1***********")
-            print(softmax_temperature(log_probs[:, bb_num, :], dim=0, tau=self.tau))
+            print(softmax_temperature(log_probs[:, bb_num, :], dim=0, tau=self.tau)[0])
+            print(softmax_temperature(log_probs[:, bb_num, :], dim=0, tau=self.tau).shape)
             print("***********DIM2***********")
-            print(softmax_temperature(log_probs[:, bb_num, :], dim=1, tau=self.tau))
+            print(softmax_temperature(log_probs[:, bb_num, :], dim=1, tau=self.tau)[0])
+            print(softmax_temperature(log_probs[:, bb_num, :], dim=1, tau=self.tau).shape)
             print("***********LOGPROBS***********")
             log_probs[:, bb_num, :] = softmax_temperature(log_probs[:, bb_num, :], dim=0, tau=self.tau)
             print(log_probs)
