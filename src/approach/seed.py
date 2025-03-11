@@ -399,7 +399,7 @@ class Appr(Inc_Learning_Appr):
                 c += self.model.task_offset[bb_num]
                 log_probs[:, bb_num, c] = class_gmm.score_samples(features[:, bb_num])
                 mask[:, bb_num, c] = True
-                tag_class_id.append(torch.argmax(class_gmm.score_samples(features[:, bb_num]), dim=1))
+                tag_class_id.append(torch.argmax(class_gmm.score_samples(features[:, bb_num])))
 
 
         
