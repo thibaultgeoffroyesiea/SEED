@@ -459,8 +459,8 @@ class Appr(Inc_Learning_Appr):
             for expert in expert_preds:
                 ar = expert.detach().cpu().numpy()
                 print("AR SHAPE")
-
                 print(ar.shape)
+                print(ar)
                 result = np.append(result, ar)
         print("RESULT SHAPE PREDICT ALL EXPERTS")
         print(result.shape)
