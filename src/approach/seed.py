@@ -417,7 +417,8 @@ class Appr(Inc_Learning_Appr):
             tag_class_id.append(torch.argmax(log_probs[:, bb_num, :] , dim=1))
 
 
-        
+        print("***********LOG_PROBS***********")
+        print(log_probs)
         # # Task-Agnostic
         # log_probs = softmax_temperature(log_probs, dim=2, tau=self.tau)
         # print("***********LOGPROBS***********")
