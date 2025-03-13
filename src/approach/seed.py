@@ -418,6 +418,7 @@ class Appr(Inc_Learning_Appr):
 
 
         print("***********LOG_PROBS***********")
+        print(log_probs.shape)
         print(log_probs)
         # # Task-Agnostic
         # log_probs = softmax_temperature(log_probs, dim=2, tau=self.tau)
