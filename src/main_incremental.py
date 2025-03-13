@@ -360,6 +360,7 @@ def main(argv=None):
 
     print("***********pred_by_expert************")
     print(np.array(pred_classes).shape)
+    print(np.array(pred_classes))
 
     sns.heatmap(cm, annot=True)
     plt.savefig('confusion_matrix.png')
