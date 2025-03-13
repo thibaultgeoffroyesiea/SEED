@@ -452,10 +452,14 @@ class Appr(Inc_Learning_Appr):
     def predict_all_expert(self, val_loader):
         result = []
         for images, targets in val_loader:
+            print("**********IMAGE***********")
+            print(len(images))
             targets = targets.to(self.device)
             # Forward current model
             features = self.model(images.to(self.device))
             expert_preds  = self.predict_class_all_expert(features)
+            preds = expert_preds.detach().cpu().numpy()
+            print("preds: " + preds)
             for expert in range(len(expert_preds)):
                 ar = []
                 for i in expert_preds[expert]:
@@ -474,6 +478,8 @@ class Appr(Inc_Learning_Appr):
             return total_loss
         return ce_loss
 
+    def to_nump_array(self, tensor):
+        return tensor.detach().cpu().numpy()
     def _get_optimizer(self, num, wd, milestones=[60, 120, 160]):
         """Returns the optimizer"""
         optimizer = torch.optim.SGD(self.model.bbs[num].parameters(), lr=self.lr, weight_decay=wd, momentum=0.9)
