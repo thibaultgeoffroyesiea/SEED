@@ -2,6 +2,7 @@ import copy
 import random
 import torch
 
+import numpy as np
 from argparse import ArgumentParser
 from itertools import compress
 from torch import nn
@@ -456,10 +457,11 @@ class Appr(Inc_Learning_Appr):
             features = self.model(images.to(self.device))
             expert_preds  = self.predict_class_all_expert(features)
             for expert in range(len(expert_preds)):
-                result.append([])
+                ar = []
                 for i in expert_preds[expert]:
-                    result[expert].append(i.item())
-        return result
+                    ar.append(i.item())
+                result.append(np.array(ar))
+        return np.array(result)
     
 
     def criterion(self, t, outputs, targets, features=None, old_features=None):
