@@ -461,6 +461,7 @@ class Appr(Inc_Learning_Appr):
                 for i in expert_preds[expert]:
                     ar.append(i.item())
                 result.append(np.array(ar))
+        print(result.shape)
         return np.array(result)
     
 
