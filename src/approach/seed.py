@@ -415,7 +415,6 @@ class Appr(Inc_Learning_Appr):
             # print(confidences)
             # print("***********ARGMAX***********")
             tag_class_id.append(torch.argmax(log_probs[:, bb_num, :] , dim=1))
-            print(tag_class_id)
 
 
         
@@ -458,15 +457,11 @@ class Appr(Inc_Learning_Appr):
             # Forward current model
             features = self.model(images.to(self.device))
             expert_preds  = self.predict_class_all_expert(features)
-            preds = expert_preds.detach().cpu().numpy()
-            print("preds: " + preds)
             for expert in range(len(expert_preds)):
-                ar = []
-                for i in expert_preds[expert]:
-                    ar.append(i.item())
-                result.append(np.array(ar))
+                ar = expert.detach().cpu().numpy()
+                result.append(ar)
         print(result)
-        return np.matrix(result)
+        return np.array(result)
     
 
     def criterion(self, t, outputs, targets, features=None, old_features=None):
