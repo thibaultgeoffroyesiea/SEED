@@ -450,7 +450,7 @@ class Appr(Inc_Learning_Appr):
 
     def predict_all_expert(self, val_loader):
         result = np.array([])
-        
+
         for images, targets in val_loader:
             targets = targets.to(self.device)
             # Forward current model
@@ -458,6 +458,9 @@ class Appr(Inc_Learning_Appr):
             expert_preds  = self.predict_class_all_expert(features)
             for expert in expert_preds:
                 ar = expert.detach().cpu().numpy()
+                print("AR SHAPE")
+
+                print(ar.shape)
                 result = np.append(result, ar)
         print("RESULT SHAPE PREDICT ALL EXPERTS")
         print(result.shape)
