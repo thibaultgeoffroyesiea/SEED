@@ -457,7 +457,7 @@ class Appr(Inc_Learning_Appr):
             # Forward current model
             features = self.model(images.to(self.device))
             expert_preds  = self.predict_class_all_expert(features)
-            for expert in range(len(expert_preds)):
+            for expert in expert_preds:
                 ar = expert.detach().cpu().numpy()
                 result.append(ar)
         print(result)
