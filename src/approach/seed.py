@@ -459,7 +459,7 @@ class Appr(Inc_Learning_Appr):
             expert_preds  = self.predict_class_all_expert(features)
             for expert in expert_preds:
                 ar = expert.detach().cpu().numpy()
-                result.extend(ar)
+                result = np.append(result, ar)
         print(result)
         return np.array(result)
     
