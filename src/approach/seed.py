@@ -408,7 +408,7 @@ class Appr(Inc_Learning_Appr):
             # print(softmax_temperature(log_probs[:, bb_num, :], dim=1, tau=self.tau)[0])
             # print(softmax_temperature(log_probs[:, bb_num, :], dim=1, tau=self.tau).shape)
             # print("***********LOGPROBS***********")
-            log_probs[:, bb_num, :] = softmax_temperature(log_probs[:, bb_num, :], dim=1, tau=self.tau)
+            # log_probs[:, bb_num, :] = softmax_temperature(log_probs[:, bb_num, :], dim=2, tau=self.tau)
             # print(log_probs)
             # confidences = torch.sum(log_probs[:, bb_num, :], dim=0) / torch.sum(mask[:, bb_num, :], dim=0)
             # print("***********CONFIDENCES***********")
