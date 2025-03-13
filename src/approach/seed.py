@@ -398,8 +398,8 @@ class Appr(Inc_Learning_Appr):
         for bb_num, _ in enumerate(self.experts_distributions):
             for c, class_gmm in enumerate(self.experts_distributions[bb_num]):
                 c += self.model.task_offset[bb_num]
-                print("bb_num: "  + bb_num)
-                print("c: "+ c)
+                print("bb_num: "  + str(bb_num))
+                print("c: "+ str(c))
                 log_probs[:, bb_num, c] = class_gmm.score_samples(features[:, bb_num])
                 mask[:, bb_num, c] = True
 
