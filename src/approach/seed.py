@@ -462,7 +462,7 @@ class Appr(Inc_Learning_Appr):
                     ar.append(i.item())
                 result.append(np.array(ar))
         print(result)
-        return np.array(result)
+        return np.matrix(result)
     
 
     def criterion(self, t, outputs, targets, features=None, old_features=None):
