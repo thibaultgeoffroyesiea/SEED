@@ -395,6 +395,8 @@ class Appr(Inc_Learning_Appr):
         tag_class_id = []
         log_probs = torch.full((features.shape[0], len(self.experts_distributions), len(self.experts_distributions[0])), fill_value=-1e8, device=features.device)
         mask = torch.full_like(log_probs, fill_value=False, dtype=torch.bool)
+        print("******EXP DISTRIBS SIZE******")
+        print(len(self.experts_distributions))
         for bb_num, _ in enumerate(self.experts_distributions):
             for c, class_gmm in enumerate(self.experts_distributions[bb_num]):
                 c += self.model.task_offset[bb_num]
