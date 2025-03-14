@@ -15,6 +15,8 @@ from .incremental_learning import Inc_Learning_Appr
 
 torch.backends.cuda.matmul.allow_tf32 = False
 
+import pandas as pd
+
 
 def softmax_temperature(x, dim, tau=1.0):
     return torch.softmax(x / tau, dim=dim)
@@ -452,6 +454,18 @@ class Appr(Inc_Learning_Appr):
             for i in tag_pred:
                 result.append(i.item())
         return result
+
+
+    def predict_all(self, val_loader):
+        result = pd.DataFrame()
+
+        for images, targets in val_loader:
+            for bb_num, _ in enumerate(self.experts_distributions):
+                for c, class_gmm in enumerate(self.experts_distributions[bb_num]):
+                    
+                    c += self.model.task_offset[bb_num]
+                    print(class_gmm.mu.data)
+                    
 
 
     def predict_all_expert(self, val_loader):
