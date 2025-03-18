@@ -110,6 +110,7 @@ class ExtractorEnsemble(LLL_Net):
         self.model = None
         self.num_features = 64
         self.network_type = network_type
+        print(network_type)
         if network_type == "resnet18":
             self.bb_fun = resnet18
         elif network_type == "resnet34":
