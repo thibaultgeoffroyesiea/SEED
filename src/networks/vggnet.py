@@ -53,7 +53,6 @@ class VggNet(nn.Module):
 
 
 def vggnet(pretrained=False, **kwargs) :
-    print(**kwargs)
     if pretrained:
         raise NotImplementedError
     return VggNet(**kwargs)
