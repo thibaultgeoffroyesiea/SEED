@@ -52,7 +52,7 @@ class VggNet(nn.Module):
         return h
 
 
-def vggnet(num_out=100, pretrained=False, **kwargs) :
+def vggnet(pretrained=False, **kwargs) :
     if pretrained:
         raise NotImplementedError
-    return VggNet(num_out, **kwargs)
+    return VggNet(**kwargs)
