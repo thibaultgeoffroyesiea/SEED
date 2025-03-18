@@ -30,7 +30,7 @@ def set_tvmodel_head_var(model):
     elif type(model) == models.ResNet:
         model.head_var = 'fc'
     elif type(model) == models.VGG:
-        model.head_var = 'fc'
+        model.head_var = 'classifier'
     elif type(model) == models.GoogLeNet:
         model.head_var = 'fc'
     elif type(model) == models.MobileNetV2:
