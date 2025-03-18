@@ -9,7 +9,8 @@ class VggNet(nn.Module):
 
     def __init__(self, num_classes=1000, num_features=512):
         super().__init__()
-
+        print(num_features)
+        print(num_classes)
         self.features = nn.Sequential(
             nn.Conv2d(3, 64, kernel_size=3, padding=1),
             nn.ReLU(inplace=True),
