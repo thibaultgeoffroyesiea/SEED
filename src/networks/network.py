@@ -121,7 +121,7 @@ class ExtractorEnsemble(LLL_Net):
         elif network_type == "resnet20":
             self.num_features = 24
             self.bb_fun = resnet20
-        elif network_type == "vggnet":
+        elif network_type == "vgg16":
             self.bb_fun = vggnet
         else:
             raise RuntimeError("Network not supported")
