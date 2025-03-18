@@ -37,10 +37,10 @@ class VggNet(nn.Module):
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2),
         )
-        self.fc6 = nn.Linear(in_features=num_features * 4 * 4, out_features=4096, bias=True)
-        self.fc7 = nn.Linear(in_features=4096, out_features=4096, bias=True)
+        self.fc6 = nn.Linear(in_features=num_features * 4 * 4, out_features=num_features, bias=True)
+        self.fc7 = nn.Linear(in_features=num_features, out_features=num_features, bias=True)
         # last classifier layer (head) with as many outputs as classes
-        self.fc = nn.Linear(in_features=4096, out_features=num_classes, bias=True)
+        self.fc = nn.Linear(in_features=num_features, out_features=num_classes, bias=True)
         # and `head_var` with the name of the head, so it can be removed when sdoing incremental learning experiments
         self.head_var = 'fc'
 
