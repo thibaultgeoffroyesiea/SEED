@@ -7,7 +7,7 @@ class VggNet(nn.Module):
         Check this blog for some info: https://learningai.io/projects/2017/06/29/tiny-imagenet.html
     """
 
-    def __init__(self, num_classes=1000):
+    def __init__(self, num_classes=1000, num_features=512):
         super().__init__()
 
         self.features = nn.Sequential(
@@ -36,7 +36,7 @@ class VggNet(nn.Module):
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2),
         )
-        self.fc6 = nn.Linear(in_features=512 * 4 * 4, out_features=4096, bias=True)
+        self.fc6 = nn.Linear(in_features=num_features * 4 * 4, out_features=4096, bias=True)
         self.fc7 = nn.Linear(in_features=4096, out_features=4096, bias=True)
         # last classifier layer (head) with as many outputs as classes
         self.fc = nn.Linear(in_features=4096, out_features=num_classes, bias=True)
@@ -53,6 +53,7 @@ class VggNet(nn.Module):
 
 
 def vggnet(pretrained=False, **kwargs) :
+    print(**kwargs)
     if pretrained:
         raise NotImplementedError
     return VggNet(**kwargs)
