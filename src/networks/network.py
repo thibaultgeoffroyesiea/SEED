@@ -35,6 +35,7 @@ class LLL_Net(nn.Module):
                 # WARNING: this is for when pytorch version is <1.2
                 setattr(self.model, head_var, nn.Sequential())
         else:
+            print(last_layer)
             self.out_size = last_layer.out_features
 
         self.heads = nn.ModuleList()
