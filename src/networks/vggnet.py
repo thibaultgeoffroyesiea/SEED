@@ -40,7 +40,7 @@ class VggNet(nn.Module):
         self.fc7 = nn.Linear(in_features=4096, out_features=4096, bias=True)
         # last classifier layer (head) with as many outputs as classes
         self.fc = nn.Linear(in_features=4096, out_features=num_classes, bias=True)
-        # and `head_var` with the name of the head, so it can be removed when doing incremental learning experiments
+        # and `head_var` with the name of the head, so it can be removed when sdoing incremental learning experiments
         self.head_var = 'fc'
 
     def forward(self, x):
@@ -52,7 +52,7 @@ class VggNet(nn.Module):
         return h
 
 
-def vggnet(num_out=100, pretrained=False):
+def vggnet(num_out=100, pretrained=False, **kwargs) :
     if pretrained:
         raise NotImplementedError
-    return VggNet(num_out)
+    return VggNet(num_out, **kwargs)
