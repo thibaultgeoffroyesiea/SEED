@@ -5,7 +5,7 @@ from copy import deepcopy
 from .resnet32_linear_turbo import resnet32
 from .resnet_linear_turbo import resnet18, resnet34, resnet50
 from .resnet32_linear_bottleneck import resnet20
-
+from .vggnet import vggnet
 
 class LLL_Net(nn.Module):
     """Basic class for implementing networks"""
@@ -121,6 +121,8 @@ class ExtractorEnsemble(LLL_Net):
         elif network_type == "resnet20":
             self.num_features = 24
             self.bb_fun = resnet20
+        elif network_type == "vggnet":
+            self.bb_fun = vggnet
         else:
             raise RuntimeError("Network not supported")
 
