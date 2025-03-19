@@ -133,7 +133,12 @@ dataset_config = {
         'resize': 128,
         'flip': True,
         'normalize': ((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
-
+    },
+    'cfee_AU': {
+        'path': join(_BASE_DATA_PATH, 'cfee_AU'),
+        'resize': 128,
+        'flip': True,
+        'normalize': ((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
     }
 }
 
