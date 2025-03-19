@@ -59,7 +59,7 @@ def get_data_AU(path, num_tasks, nc_first_task, validation, shuffle_classes, cla
     trn_lines = np.loadtxt(os.path.join(path, 'train.txt'), dtype=str)
     tst_lines = np.loadtxt(os.path.join(path, 'test.txt'), dtype=str)
     if class_order is None:
-        num_classes = len(np.unique(trn_lines[:, 1]))
+        num_classes = len(np.unique(trn_lines[:, 2]))
         class_order = list(range(num_classes))
     else:
         num_classes = len(class_order)
