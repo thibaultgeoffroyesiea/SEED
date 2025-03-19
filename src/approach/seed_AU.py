@@ -151,7 +151,7 @@ class Appr(Inc_Learning_Appr):
             train_loss, valid_loss = [], []
             train_hits, val_hits = 0, 0
             model.train()
-            for images, targets in trn_loader:
+            for images, _, targets in trn_loader:
                 targets -= self.model.task_offset[t]
                 bsz = images.shape[0]
                 images, targets = images.to(self.device), targets.to(self.device)
@@ -167,7 +167,7 @@ class Appr(Inc_Learning_Appr):
 
             model.eval()
             with torch.no_grad():
-                for images,au,  targets in val_loader:
+                for images,_,  targets in val_loader:
                     targets -= self.model.task_offset[t]
                     bsz = images.shape[0]
                     images, targets = images.to(self.device), targets.to(self.device)
@@ -336,7 +336,7 @@ class Appr(Inc_Learning_Appr):
         """Contains the evaluation code"""
         total_loss, total_acc_taw, total_acc_tag, total_num = 0, 0, 0, 0
         self.model.eval()
-        for images, targets in val_loader:
+        for images, au ,targets in val_loader:
             targets = targets.to(self.device)
             # Forward current model
             features = self.model(images.to(self.device))
@@ -451,7 +451,7 @@ class Appr(Inc_Learning_Appr):
         """Predicts the output given the input"""
         """Contains the evaluation code"""
         result = []
-        for images, targets in val_loader:
+        for images, au, targets in val_loader:
             targets = targets.to(self.device)
             # Forward current model
             features = self.model(images.to(self.device))
@@ -464,7 +464,7 @@ class Appr(Inc_Learning_Appr):
     def predict_all(self, val_loader):
         result = pd.DataFrame()
 
-        for images, targets in val_loader:
+        for images, au, targets in val_loader:
             for bb_num, _ in enumerate(self.experts_distributions):
                 for c, class_gmm in enumerate(self.experts_distributions[bb_num]):
                     
@@ -476,7 +476,7 @@ class Appr(Inc_Learning_Appr):
     def predict_all_expert(self, val_loader):
         result = np.array([])
 
-        for images, targets in val_loader:
+        for images, au, targets in val_loader:
             targets = targets.to(self.device)
             # Forward current model
             features = self.model(images.to(self.device))
