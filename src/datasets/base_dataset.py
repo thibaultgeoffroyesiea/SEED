@@ -126,6 +126,8 @@ def get_data_AU(path, num_tasks, nc_first_task, validation, shuffle_classes, cla
 
     # check classes
     for tt in range(num_tasks):
+        print(len(np.unique(data[tt]['trn']['y'])))
+        print(cpertask[tt])
         data[tt]['ncla'] = len(np.unique(data[tt]['trn']['y']))
         assert data[tt]['ncla'] == cpertask[tt], "something went wrong splitting classes"
 
