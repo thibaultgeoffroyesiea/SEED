@@ -167,7 +167,7 @@ class Appr(Inc_Learning_Appr):
 
             model.eval()
             with torch.no_grad():
-                for images, targets in val_loader:
+                for images,au,  targets in val_loader:
                     targets -= self.model.task_offset[t]
                     bsz = images.shape[0]
                     images, targets = images.to(self.device), targets.to(self.device)
@@ -234,7 +234,7 @@ class Appr(Inc_Learning_Appr):
             for m in model.modules():
                 if isinstance(m, nn.BatchNorm2d):
                     m.eval()
-            for images, targets in trn_loader:
+            for images,_, targets in trn_loader:
                 targets -= self.model.task_offset[t]
                 bsz = images.shape[0]
                 images, targets = images.to(self.device), targets.to(self.device)
@@ -253,7 +253,7 @@ class Appr(Inc_Learning_Appr):
 
             model.eval()
             with torch.no_grad():
-                for images, targets in val_loader:
+                for images,_, targets in val_loader:
                     targets -= self.model.task_offset[t]
                     bsz = images.shape[0]
                     images, targets = images.to(self.device), targets.to(self.device)
@@ -301,13 +301,14 @@ class Appr(Inc_Learning_Appr):
                 loader = torch.utils.data.DataLoader(ds, batch_size=128, num_workers=trn_loader.num_workers, shuffle=False)
                 from_ = 0
                 class_features = torch.full((2 * len(ds), self.model.num_features), fill_value=-999999999.0, device=self.model.device)
-                for images in loader:
+                for images, au in loader:
                     bsz = images.shape[0]
                     images = images.to(self.device)
                     features = model(images)
                     #add AU to images
                     print("****HANDLING AU TO ADD TO IMAGES****")
                     print(len(images))
+                    print(au)
                     class_features[from_: from_+bsz] = features
                     features = model(torch.flip(images, dims=(3,)))
                     class_features[from_+bsz: from_+2*bsz] = features
