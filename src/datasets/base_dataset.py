@@ -109,7 +109,7 @@ def get_data_AU(path, num_tasks, nc_first_task, validation, shuffle_classes, cla
         data[this_task]['trn']['y'].append(this_label - init_class[this_task])
 
     # ALL OR TEST
-    for this_image, this_label in tst_lines:
+    for this_image, this_au, this_label in tst_lines:
         if not os.path.isabs(this_image):
             this_image = os.path.join(path, this_image)
         this_label = int(this_label)
