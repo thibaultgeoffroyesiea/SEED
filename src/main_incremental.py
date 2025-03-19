@@ -109,6 +109,8 @@ def main(argv=None):
     #saving model
     parser.add_argument('--save_model', type=bool, default=False, help='Save model (default=%(default)s)')
 
+
+
     
 
 
@@ -221,7 +223,7 @@ def main(argv=None):
 
     # Network and Approach instances
     utils.seed_everything(seed=args.seed)
-    if args.approach == "seed" or args.approach=="seed_tgy":
+    if args.approach == "seed" or args.approach=="seed_tgy" or args.approach=="seed_AU":
         net = ExtractorEnsemble(init_model, taskcla, args.network, device)
     else:
         net = LLL_Net(init_model, taskcla, remove_existing_head=not args.keep_existing_head)

@@ -33,6 +33,7 @@ class Appr(Inc_Learning_Appr):
         super(Appr, self).__init__(model, device, nepochs, lr, lr_min, lr_factor, lr_patience, clipgrad, momentum, wd,
                                    multi_softmax, wu_nepochs, wu_lr_factor, fix_bn, eval_on_train, logger,
                                    exemplars_dataset=None)
+        print("SEED AU")
         self.max_experts = max_experts
         self.model.bbs = self.model.bbs[:max_experts]
         self.gmms = gmms
