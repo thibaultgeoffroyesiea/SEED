@@ -9,7 +9,7 @@ from torch import nn
 from torch.utils.data import Dataset
 from torch.distributions import MultivariateNormal
 
-from .mvgb import ClassMemoryDataset, ClassDirectoryDataset
+from .mvgb import ClassMemoryDataset, ClassDirectoryDataset , ClassMemoryDatasetMulti, ClassDirectoryDatasetMulti
 from .gmm import GaussianMixture
 from .incremental_learning import Inc_Learning_Appr
 
@@ -295,11 +295,11 @@ class Appr(Inc_Learning_Appr):
                 if isinstance(trn_loader.dataset.images, list):
                     train_images = list(compress(trn_loader.dataset.images, train_indices))
                     aus = list(compress(trn_loader.dataset.au, train_indices))
-                    ds = ClassDirectoryDataset(train_images, aus, transforms)
+                    ds = ClassDirectoryDatasetMulti(train_images, aus, transforms)
                 else:
                     ds = trn_loader.dataset.images[train_indices]
                     au = trn_loader.dataset.au[train_indices]
-                    ds = ClassMemoryDataset(ds,au,  transforms)
+                    ds = ClassMemoryDatasetMulti(ds,au,  transforms)
                 loader = torch.utils.data.DataLoader(ds, batch_size=128, num_workers=trn_loader.num_workers, shuffle=False)
                 from_ = 0
                 class_features = torch.full((2 * len(ds), self.model.num_features), fill_value=-999999999.0, device=self.model.device)

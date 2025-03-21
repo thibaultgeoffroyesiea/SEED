@@ -85,6 +85,21 @@ class ClassDirectoryDataset(torch.utils.data.Dataset):
         image = self.transforms(image)
         return image
 
+class ClassDirectoryDatasetMulti(torch.utils.data.Dataset):
+    """ Dataset consisting of samples of only one class loaded from disc """
+    def __init__(self, images, aus,  transforms):
+        self.images = images
+        self.aus = aus
+        self.transforms = transforms
+
+    def __len__(self):
+        return len(self.images)
+
+    def __getitem__(self, index):
+        image = Image.open(self.images[index]).convert('RGB')
+        image = self.transforms(image)
+        return image
+
 
 class DistributionDataset(torch.utils.data.Dataset):
     """ Dataset that samples from learned distributions to train head """
