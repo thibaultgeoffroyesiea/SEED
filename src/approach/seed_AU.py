@@ -300,8 +300,8 @@ class Appr(Inc_Learning_Appr):
                     ds = trn_loader.dataset.images[train_indices]
                     au = trn_loader.dataset.au[train_indices]
                     ds = ClassMemoryDatasetMulti(ds,au,  transforms)
-                print("****DAS TEST**")
-                print(ds.__getitem__(0)[0])
+                # print("****DAS TEST**")
+                # print(ds.__getitem__(0)[0])
 
                 loader = torch.utils.data.DataLoader(ds, batch_size=128, num_workers=trn_loader.num_workers, shuffle=False)
                 from_ = 0
@@ -309,7 +309,7 @@ class Appr(Inc_Learning_Appr):
             
 
                 class_features = torch.full((2 * len(ds), self.model.num_features), fill_value=-999999999.0, device=self.model.device)
-                for images in loader:
+                for images, aus in loader:
                     print(images.shape)
                     bsz = images.shape[0]
                     images = images.to(self.device)
