@@ -316,7 +316,7 @@ class Appr(Inc_Learning_Appr):
                     features = model(images)
                     #add aus to the features
                     print(type(features))
-                    print(type(aus))
+                    print(aus)
                     features  = np.concatenate((features.cpu().numpy(), aus.cpu().numpy()), axis=1)
 
                     #add AU to images
