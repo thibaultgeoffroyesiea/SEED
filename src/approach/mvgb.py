@@ -98,7 +98,7 @@ class ClassDirectoryDatasetMulti(torch.utils.data.Dataset):
     def __getitem__(self, index):
         image = Image.open(self.images[index]).convert('RGB')
         image = self.transforms(image)
-        return image
+        return image, self.aus[index]
 
 
 class DistributionDataset(torch.utils.data.Dataset):
