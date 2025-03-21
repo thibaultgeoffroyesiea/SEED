@@ -303,14 +303,13 @@ class Appr(Inc_Learning_Appr):
                 loader = torch.utils.data.DataLoader(ds, batch_size=128, num_workers=trn_loader.num_workers, shuffle=False)
                 from_ = 0
                 class_features = torch.full((2 * len(ds), self.model.num_features), fill_value=-999999999.0, device=self.model.device)
-                for images in loader:
+                for images, aus in loader:
                     bsz = images.shape[0]
                     images = images.to(self.device)
                     features = model(images)
                     #add AU to images
                     print("****HANDLING AU TO ADD TO IMAGES****")
-                    print(len(images))
-                    print(au)
+                    print(aus)
                     class_features[from_: from_+bsz] = features
                     features = model(torch.flip(images, dims=(3,)))
                     class_features[from_+bsz: from_+2*bsz] = features
