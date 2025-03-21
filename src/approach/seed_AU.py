@@ -315,7 +315,9 @@ class Appr(Inc_Learning_Appr):
                     images = images.to(self.device)
                     features = model(images)
                     #add aus to the features
-                    features  = torch.cat((features, aus), dim=1)
+                    print(type(features))
+                    print(type(aus))
+                    features  = np.concatenate((features.cpu().numpy(), aus.cpu().numpy()), axis=1)
 
                     #add AU to images
                     print("****HANDLING AU TO ADD TO IMAGES****")
