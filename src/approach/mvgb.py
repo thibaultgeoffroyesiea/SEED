@@ -57,7 +57,20 @@ class ClassMemoryDataset(torch.utils.data.Dataset):
         image = self.transforms(image)
         return image
 
+class ClassMemoryDatasetMulti(torch.utils.data.Dataset):
+    """ Dataset consisting of samples of only one class """
+    def __init__(self, images, aus, transforms):
+        self.images = images
+        self.aus = aus
+        self.transforms = transforms
 
+    def __len__(self):
+        return self.images.shape[0]
+
+    def __getitem__(self, index):
+        image = Image.fromarray(self.images[index])
+        image = self.transforms(image)
+        return image, self.aus[index]
 class ClassDirectoryDataset(torch.utils.data.Dataset):
     """ Dataset consisting of samples of only one class loaded from disc """
     def __init__(self, images, transforms):

@@ -294,14 +294,16 @@ class Appr(Inc_Learning_Appr):
                 train_indices = torch.tensor(trn_loader.dataset.labels) == c
                 if isinstance(trn_loader.dataset.images, list):
                     train_images = list(compress(trn_loader.dataset.images, train_indices))
-                    ds = ClassDirectoryDataset(train_images, transforms)
+                    aus = list(compress(trn_loader.dataset.aus, train_indices))
+                    ds = ClassDirectoryDataset(train_images, aus transforms)
                 else:
                     ds = trn_loader.dataset.images[train_indices]
-                    ds = ClassMemoryDataset(ds, transforms)
+                    au = trn_loader.dataset.au[train_indices]
+                    ds = ClassMemoryDataset(ds,au,  transforms)
                 loader = torch.utils.data.DataLoader(ds, batch_size=128, num_workers=trn_loader.num_workers, shuffle=False)
                 from_ = 0
                 class_features = torch.full((2 * len(ds), self.model.num_features), fill_value=-999999999.0, device=self.model.device)
-                for images, au, _ in loader:
+                for images in loader:
                     bsz = images.shape[0]
                     images = images.to(self.device)
                     features = model(images)
