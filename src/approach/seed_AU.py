@@ -310,14 +310,12 @@ class Appr(Inc_Learning_Appr):
 
                 class_features = torch.full((2 * len(ds), self.model.num_features), fill_value=-999999999.0, device=self.model.device)
                 for images, aus in loader:
-                    print(aus)
+                    print(type(aus))
                     bsz = images.shape[0]
                     images = images.to(self.device)
                     features = model(images)
                     #add aus to the features
-                    print(type(features))
-                    print(aus)
-                    features  = np.concatenate((features.cpu().numpy(), aus.cpu().numpy()), axis=1)
+                    features  = np.concatenate((features.cpu().numpy(), np.array(aus)), axis=1)
 
                     #add AU to images
                     print("****HANDLING AU TO ADD TO IMAGES****")
