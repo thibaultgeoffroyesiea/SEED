@@ -314,16 +314,14 @@ class Appr(Inc_Learning_Appr):
                     images = images.to(self.device)
                     features = model(images)
                     #add aus to the features
-                    print("****SHAPES**")
-                    print(features.shape)
                     aus = [x.cpu().numpy() for x in aus]
-                    print("****AUS****")
                     aus = np.array(aus).T
                     features  = np.concatenate((features.cpu().numpy(), aus), axis=1)
 
                     #add AU to images
                     print("****HANDLING AU TO ADD TO IMAGES****")
-                    print(aus)
+                    print(features.shape)
+                    print(features)
                     class_features[from_: from_+bsz] = features
                     features = model(torch.flip(images, dims=(3,)))
                     class_features[from_+bsz: from_+2*bsz] = features
