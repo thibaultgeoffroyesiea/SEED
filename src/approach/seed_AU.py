@@ -325,8 +325,8 @@ class Appr(Inc_Learning_Appr):
                     class_features[from_: from_+bsz] = features
 
                     features = model(torch.flip(images, dims=(3,)))
-
-
+                    features  = np.concatenate((features.cpu().numpy(), aus), axis=1)
+                    features = torch.tensor(features).to(self.device)
                     class_features[from_+bsz: from_+2*bsz] = features
                     from_ += 2*bsz
 
