@@ -317,13 +317,16 @@ class Appr(Inc_Learning_Appr):
                     aus = [x.cpu().numpy() for x in aus]
                     aus = np.array(aus).T
                     features  = np.concatenate((features.cpu().numpy(), aus), axis=1)
-
+                    features = torch.tensor(features).to(self.device)
                     #add AU to images
                     print("****HANDLING AU TO ADD TO IMAGES****")
                     print(features.shape)
                     print(features)
                     class_features[from_: from_+bsz] = features
+
                     features = model(torch.flip(images, dims=(3,)))
+
+
                     class_features[from_+bsz: from_+2*bsz] = features
                     from_ += 2*bsz
 
