@@ -315,7 +315,10 @@ class Appr(Inc_Learning_Appr):
                     images = images.to(self.device)
                     features = model(images)
                     #add aus to the features
-                    features  = np.concatenate((features.cpu().numpy(), np.array(aus)), axis=0)
+                    print("****SHAPES**")
+                    print(aus.shape)
+                    print(images.shape)
+                    features  = np.concatenate((features.cpu().numpy(), np.array(aus)), axis=2)
 
                     #add AU to images
                     print("****HANDLING AU TO ADD TO IMAGES****")
