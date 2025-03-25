@@ -315,8 +315,9 @@ class Appr(Inc_Learning_Appr):
                     features = model(images)
                     #add aus to the features
                     print("****SHAPES**")
-                    print(images.shape)
-                    aus = torch.tensor(aus).to(self.device)
+                    print(features.shape)
+                    aus = [x.cpu().numpy() for x in aus]
+                    print("****AUS****")
                     print(type(aus))
                     print(type(aus[0]))
                     features  = np.concatenate((features.cpu().numpy(), np.array(aus)), axis=2)
