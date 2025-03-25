@@ -360,11 +360,12 @@ class Appr(Inc_Learning_Appr):
             aus = [x.cpu().numpy() for x in aus]
             aus = np.array(aus).T
 
-            print("shape")
-            print(aus.shape)
-            print(features.shape)
+           
             features = features.reshape(128, 64)
 
+            print("shape")
+            print(aus.shape)
+            print(features.shape)    
             features  = np.concatenate((features.cpu().numpy(), aus), axis=1)
             features = torch.tensor(features).to(self.device)
             hits_taw, hits_tag = self.calculate_metrics(features, targets, t)
