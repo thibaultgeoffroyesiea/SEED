@@ -43,7 +43,6 @@ class AUBaseDataset(Dataset):
 
     def __getitem__(self, index):
         """Generates one sample of data"""
-        print(self.images[index])
         x = Image.open(self.images[index]).convert('RGB')
         x = self.transform(x)
         y = self.labels[index]
@@ -52,8 +51,6 @@ class AUBaseDataset(Dataset):
         with open(au) as f:
             au = f.readlines()
             au = [float(x.strip()) for x in au]
-        print("AU")
-        print(au)
         return x, au, y
 
 def get_data_AU(path, num_tasks, nc_first_task, validation, shuffle_classes, class_order=None):
@@ -90,8 +87,6 @@ def get_data_AU(path, num_tasks, nc_first_task, validation, shuffle_classes, cla
     assert num_classes == cpertask.sum(), "something went wrong, the split does not match num classes"
     cpertask_cumsum = np.cumsum(cpertask)
     init_class = np.concatenate(([0], cpertask_cumsum[:-1]))
-    print('TASSSSK')
-    print(cpertask)
     # initialize data structure
     for tt in range(num_tasks):
         data[tt] = {}
