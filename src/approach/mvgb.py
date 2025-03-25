@@ -70,6 +70,7 @@ class ClassMemoryDatasetMulti(torch.utils.data.Dataset):
     def __getitem__(self, index):
         image = Image.fromarray(self.images[index])
         image = self.transforms(image)
+
         return image, self.aus[index]
 class ClassDirectoryDataset(torch.utils.data.Dataset):
     """ Dataset consisting of samples of only one class loaded from disc """
@@ -98,7 +99,11 @@ class ClassDirectoryDatasetMulti(torch.utils.data.Dataset):
     def __getitem__(self, index):
         image = Image.open(self.images[index]).convert('RGB')
         image = self.transforms(image)
-        return image, self.aus[index]
+        au = self.aus[index]
+        with open(au) as f:
+           au = f.readlines()
+           au = [float(x.strip()) for x in au]
+        return image, au
 
 
 class DistributionDataset(torch.utils.data.Dataset):
