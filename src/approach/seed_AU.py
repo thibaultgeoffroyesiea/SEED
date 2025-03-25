@@ -318,10 +318,10 @@ class Appr(Inc_Learning_Appr):
                     aus = np.array(aus).T
                     features  = np.concatenate((features.cpu().numpy(), aus), axis=1)
                     features = torch.tensor(features).to(self.device)
-                    #add AU to images
-                    print("****HANDLING AU TO ADD TO IMAGES****")
-                    print(features.shape)
-                    print(features)
+                    # #add AU to images
+                    # print("****HANDLING AU TO ADD TO IMAGES****")
+                    # print(features.shape)
+                    # print(features)
                     class_features[from_: from_+bsz] = features
 
                     features = model(torch.flip(images, dims=(3,)))
@@ -352,10 +352,14 @@ class Appr(Inc_Learning_Appr):
         """Contains the evaluation code"""
         total_loss, total_acc_taw, total_acc_tag, total_num = 0, 0, 0, 0
         self.model.eval()
-        for images, au ,targets in val_loader:
+        for images, aus ,targets in val_loader:
             targets = targets.to(self.device)
+            aus = [x.cpu().numpy() for x in aus]
+            aus = np.array(aus).T
             # Forward current model
             features = self.model(images.to(self.device))
+            features = np.concatenate((features.cpu().numpy(), aus), axis=1)
+            features = torch.tensor(features).to(self.device)
             hits_taw, hits_tag = self.calculate_metrics(features, targets, t)
             # Log
             total_loss = 0
