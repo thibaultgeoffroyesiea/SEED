@@ -354,14 +354,12 @@ class Appr(Inc_Learning_Appr):
         self.model.eval()
         for images, aus ,targets in val_loader:
             targets = targets.to(self.device)
+            images = images.to(self.device)
+            features = self.model(images)
+            #add aus to the features
             aus = [x.cpu().numpy() for x in aus]
             aus = np.array(aus).T
-            # Forward current model
-            print("shape")
-            print(aus.shape)
-            features = self.model(images.to(self.device))
-            print(features.shape)
-            features = np.concatenate((features.cpu().numpy(), aus), axis=1)
+            features  = np.concatenate((features.cpu().numpy(), aus), axis=1)
             features = torch.tensor(features).to(self.device)
             hits_taw, hits_tag = self.calculate_metrics(features, targets, t)
             # Log
