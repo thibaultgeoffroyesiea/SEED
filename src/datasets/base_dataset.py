@@ -43,6 +43,7 @@ class AUBaseDataset(Dataset):
 
     def __getitem__(self, index):
         """Generates one sample of data"""
+        print(self.images[index])
         x = Image.open(self.images[index]).convert('RGB')
         x = self.transform(x)
         y = self.labels[index]
