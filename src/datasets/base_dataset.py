@@ -47,6 +47,12 @@ class AUBaseDataset(Dataset):
         x = self.transform(x)
         y = self.labels[index]
         au = self.au[index]
+        #au contains the path to a file conaiting the au values
+        with open(au) as f:
+            au = f.readlines()
+            au = [float(x.strip()) for x in au]
+        print("AU")
+        print(au)
         return x, au, y
 
 def get_data_AU(path, num_tasks, nc_first_task, validation, shuffle_classes, class_order=None):
