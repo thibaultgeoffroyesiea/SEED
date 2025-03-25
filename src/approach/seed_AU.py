@@ -308,7 +308,7 @@ class Appr(Inc_Learning_Appr):
 
             
 
-                class_features = torch.full((2 * len(ds), self.model.num_features), fill_value=-999999999.0, device=self.model.device)
+                class_features = torch.full((2 * len(ds), self.model.num_features + 17), fill_value=-999999999.0, device=self.model.device)
                 for images, aus in loader:
                     bsz = images.shape[0]
                     images = images.to(self.device)
