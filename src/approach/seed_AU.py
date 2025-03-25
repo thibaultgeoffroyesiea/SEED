@@ -318,7 +318,7 @@ class Appr(Inc_Learning_Appr):
                     print(features.shape)
                     aus = [x.cpu().numpy() for x in aus]
                     print("****AUS****")
-                    print(aus)
+                    print(np.array(aus.shape))
                     features  = np.concatenate((features.cpu().numpy(), np.array(aus)), axis=1)
 
                     #add AU to images
