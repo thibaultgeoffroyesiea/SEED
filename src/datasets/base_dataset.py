@@ -121,6 +121,7 @@ def get_data_AU(path, num_tasks, nc_first_task, validation, shuffle_classes, cla
     for this_image, this_au, this_label in tst_lines:
         if not os.path.isabs(this_image):
             this_image = os.path.join(path, this_image)
+            this_au = os.path.join(path, this_au)
         this_label = int(this_label)
         if this_label not in class_order:
             continue
