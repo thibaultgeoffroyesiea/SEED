@@ -326,9 +326,9 @@ def main(argv=None):
             aux = np.tril(np.repeat([[tdata[1] for tdata in taskcla[:max_task]]], max_task, axis=0))
             logger.log_result((acc_taw * aux).sum(1) / aux.sum(1), name="wavg_accs_taw", step=t)
             logger.log_result((acc_tag * aux).sum(1) / aux.sum(1), name="wavg_accs_tag", step=t)
-            pred = appr.predict(tst_loader[u])
-            pred_classes.extend(appr.predict_all_expert(tst_loader[u]))
-            predictions.extend(pred)
+            # pred = appr.predict(tst_loader[u])
+            # pred_classes.extend(appr.predict_all_expert(tst_loader[u]))
+            # predictions.extend(pred)
             targets.extend([t[i].item() for _, t in tst_loader[u] for i in range(t.size(0))])
 
             
@@ -347,29 +347,29 @@ def main(argv=None):
         #     for t in target:
         #         targets.append(t.item())
 
-        accs.append(accuracy_score(targets, predictions))
-        print("accuracy: " + str(accuracy_score(targets, predictions)))
+        # accs.append(accuracy_score(targets, predictions))
+        # print("accuracy: " + str(accuracy_score(targets, predictions)))
       
-        cm = confusion_matrix(targets, predictions)
-        print(cm)
+        # cm = confusion_matrix(targets, predictions)
+        # print(cm)
         
-        # Figure biases
-        f_cm = plt.figure(dpi=300)
+        # # Figure biases
+        # f_cm = plt.figure(dpi=300)
 
-        sns.heatmap(cm, annot=True)
-        logger.log_figure(name='confusion_matrix_task_' + str(t), iter=t, figure=f_cm)
+        # sns.heatmap(cm, annot=True)
+        # logger.log_figure(name='confusion_matrix_task_' + str(t), iter=t, figure=f_cm)
 
 
-    print("***********pred_by_expert************")
-    print(np.array(pred_classes).shape)
-    print(np.array(pred_classes))
+    # print("***********pred_by_expert************")
+    # print(np.array(pred_classes).shape)
+    # print(np.array(pred_classes))
 
-    sns.heatmap(cm, annot=True)
-    plt.savefig('confusion_matrix.png')
-    # Print Summary
-    f_cm = plt.figure(dpi=300)
-    sns.lineplot(accs)
-    logger.log_figure(name='accuracy', iter=t, figure=f_cm)
+    # sns.heatmap(cm, annot=True)
+    # plt.savefig('confusion_matrix.png')
+    # # Print Summary
+    # f_cm = plt.figure(dpi=300)
+    # sns.lineplot(accs)
+    # logger.log_figure(name='accuracy', iter=t, figure=f_cm)
     utils.print_summary(acc_taw, acc_tag, forg_taw, forg_tag)
     print('[Elapsed time = {:.1f} h]'.format((time.time() - tstart) / (60 * 60)))
     print('Done!')
