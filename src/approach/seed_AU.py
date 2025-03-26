@@ -366,6 +366,7 @@ class Appr(Inc_Learning_Appr):
             print(aus.shape)
             cc = features.shape[1]
             aus = aus.reshape(bb, 1, 17)
+            aus = np.repeat(aus, cc, axis=1)
             print("shape")
             print(aus.shape)
             print(features.shape)    
