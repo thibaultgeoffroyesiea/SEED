@@ -353,6 +353,7 @@ class Appr(Inc_Learning_Appr):
         total_loss, total_acc_taw, total_acc_tag, total_num = 0, 0, 0, 0
         self.model.eval()
         for images, aus ,targets in val_loader:
+            bb = images.shape[0]
             targets = targets.to(self.device)
             images = images.to(self.device)
             features = self.model(images)
@@ -363,7 +364,7 @@ class Appr(Inc_Learning_Appr):
            
             # features = features.reshape(128, 64)
             print(aus.shape)
-            aus = aus.reshape(128, 1, 17)
+            aus = aus.reshape(bb, 1, 17)
             print("shape")
             print(aus.shape)
             print(features.shape)    
