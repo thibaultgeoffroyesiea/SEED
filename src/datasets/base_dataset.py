@@ -50,6 +50,7 @@ class AUBaseDataset(Dataset):
         #au contains the path to a file conaiting the au values
         with open(au) as f:
             au = f.readlines()
+            #turn the string values into double
             au = [float(x.strip()) for x in au]
         return x, au, y
 
