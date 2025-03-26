@@ -329,7 +329,7 @@ def main(argv=None):
             # pred = appr.predict(tst_loader[u])
             # pred_classes.extend(appr.predict_all_expert(tst_loader[u]))
             # predictions.extend(pred)
-            targets.extend([t[i].item() for _, t in tst_loader[u] for i in range(t.size(0))])
+            targets.extend([t[i].item() for _, _, t in tst_loader[u] for i in range(t.size(0))])
 
             
              # Last layer analysis
