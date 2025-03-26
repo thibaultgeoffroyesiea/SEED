@@ -354,7 +354,6 @@ class Appr(Inc_Learning_Appr):
         self.model.eval()
         for images, aus ,targets in val_loader:
             bb = images.shape[0]
-            cc = images.shape[1]
             targets = targets.to(self.device)
             images = images.to(self.device)
             features = self.model(images)
@@ -365,6 +364,7 @@ class Appr(Inc_Learning_Appr):
            
             # features = features.reshape(128, 64)
             print(aus.shape)
+            cc = features.shape[1]
             aus = aus.reshape(bb, cc, 17)
             print("shape")
             print(aus.shape)
