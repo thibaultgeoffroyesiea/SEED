@@ -353,7 +353,10 @@ class Appr(Inc_Learning_Appr):
 
     @torch.no_grad()
     def predict_class_bayes(self, t, features):
+        print("***Predict_calls_bayes***")
+        print(features.shape)
         log_probs = torch.full((features.shape[0], len(self.experts_distributions), len(self.experts_distributions[0])), fill_value=-1e8, device=features.device)
+        print(log_probs.shape)       
         mask = torch.full_like(log_probs, fill_value=False, dtype=torch.bool)
         for bb_num, _ in enumerate(self.experts_distributions):
             for c, class_gmm in enumerate(self.experts_distributions[bb_num]):
