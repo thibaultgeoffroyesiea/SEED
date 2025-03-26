@@ -361,7 +361,8 @@ class Appr(Inc_Learning_Appr):
             aus = np.array(aus).T
 
            
-            features = features.reshape(128, 64)
+            # features = features.reshape(128, 64)
+            aus = aus.reshape(128, 1, 17)
             print("shape")
             print(aus.shape)
             print(features.shape)    
