@@ -365,7 +365,7 @@ class Appr(Inc_Learning_Appr):
             # features = features.reshape(128, 64)
             print(aus.shape)
             cc = features.shape[1]
-            aus = aus.reshape(bb, cc, 17)
+            aus = aus.reshape(bb, 1, 17)
             print("shape")
             print(aus.shape)
             print(features.shape)    
