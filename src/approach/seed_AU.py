@@ -366,6 +366,7 @@ class Appr(Inc_Learning_Appr):
             print(aus.shape)
             print(features.shape)    
             features  = np.concatenate((features.cpu().numpy(), aus), axis=1)
+            features = features.reshape(128, 1, 81)
             features = torch.tensor(features).to(self.device)
             hits_taw, hits_tag = self.calculate_metrics(features, targets, t)
             # Log
