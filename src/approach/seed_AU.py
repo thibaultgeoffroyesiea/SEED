@@ -368,8 +368,8 @@ class Appr(Inc_Learning_Appr):
             print(features.shape)    
             features  = np.concatenate((features.cpu().numpy(), aus), axis=2)
             features = torch.tensor(features).to(self.device)
-            features = features.to(torch.double)
-            
+            features = features.to(torch.float)
+
             hits_taw, hits_tag = self.calculate_metrics(features, targets, t)
             # Log
             total_loss = 0
