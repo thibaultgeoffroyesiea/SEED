@@ -334,7 +334,7 @@ def main(argv=None):
             # if 'AU' in appr_args.__dict__["approach"]:
             #     targets.extend([t[i].item() for _, _, t in tst_loader[u] for i in range(t.size(0))])
             # else:
-            targets.extend([t[i].item() for _, t in tst_loader[u] for i in range(t.size(0))])
+            targets.extend([t[i].item() for _,_, t in tst_loader[u] for i in range(t.size(0))])
 
 
             
