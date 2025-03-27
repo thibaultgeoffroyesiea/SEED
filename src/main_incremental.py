@@ -329,10 +329,12 @@ def main(argv=None):
             # pred = appr.predict(tst_loader[u])
             # pred_classes.extend(appr.predict_all_expert(tst_loader[u]))
             # predictions.extend(pred)
-            # if algo  = AU:
-            targets.extend([t[i].item() for _, _, t in tst_loader[u] for i in range(t.size(0))])
-            # else:
-            #     targets.extend([t[i].item() for _, t in tst_loader[u] for i in range(t.size(0))])
+            #check if parameter contains AU
+            print(appr_args.__dict__["approach"])
+            if 'AU' in appr_args.__dict__["approach"]:
+                targets.extend([t[i].item() for _, _, t in tst_loader[u] for i in range(t.size(0))])
+            else:
+                targets.extend([t[i].item() for _, t in tst_loader[u] for i in range(t.size(0))])
 
 
             
